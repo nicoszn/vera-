@@ -1,26 +1,12 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '../../../../prisma/generated/prisma/index.js';
-import { PrismaPg } from '@prisma/adapter-pg';
-import pg from 'pg';
-
-// Global caching preventing connection pooling starvation under serverless cold-start invocations
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
-
-let prisma: PrismaClient;
-
-if (!globalForPrisma.prisma) {
-  const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
-  const adapter = new PrismaPg(pool);
-  globalForPrisma.prisma = new PrismaClient({ adapter });
-}
-prisma = globalForPrisma.prisma;
+import { db } from '@workspace/db';
 
 export async function POST(req: Request) {
   try {
     const { objective } = await req.json();
     if (!objective) return NextResponse.json({ error: "Objective missing" }, { status: 400 });
 
-    const task = await prisma.agentTask.create({
+    const task = await db.agentTask.create({
       data: { objective, status: "PENDING" },
     });
 
