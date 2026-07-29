@@ -1,0 +1,2 @@
+# Exclude the Prisma 7 local generation directory from version tracking
+prisma/generated/
