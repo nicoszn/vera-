@@ -10,8 +10,8 @@
   "dependencies": {
     "@ai-sdk/openai": "^4.0.4",
     "@modelcontextprotocol/sdk": "^1.30.0",
+    "@workspace/db": "workspace:*",
     "ai": "^7.0.4",
-    "prisma": "^7.9.1",
     "zod": "^4.4.3"
   },
   "devDependencies": {
