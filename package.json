@@ -2,13 +2,13 @@
   "name": "autonomous-mcp-workspace",
   "private": true,
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "db:generate": "prisma generate",
     "db:push": "prisma db push"
   },
   "devDependencies": {
-    "prisma": "^5.22.0"
+    "prisma": "^7.9.1"
   }
 }
