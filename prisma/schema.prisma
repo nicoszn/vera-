@@ -1,0 +1,18 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AgentTask {
+  id          String   @id @default(uuid())
+  objective   String
+  status      String   @default("PENDING") // PENDING, RUNNING, COMPLETED, FAILED
+  logs        Json[]   @default([])        // Captures step-by-step thinking & actions
+  output      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
