@@ -4,14 +4,15 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 model AgentTask {
   id          String   @id @default(uuid())
   objective   String
-  status      String   @default("PENDING") // PENDING, RUNNING, COMPLETED, FAILED
-  logs        Json[]   @default([])        // Captures step-by-step thinking & actions
+  status      String   @default("PENDING") 
+  logs        Json[]   @default([])        
   output      String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
