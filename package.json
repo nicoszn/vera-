@@ -9,6 +9,6 @@
     "db:push": "prisma db push"
   },
   "devDependencies": {
-    "prisma": "^5.11.0"
+    "prisma": "^5.22.0"
   }
 }
