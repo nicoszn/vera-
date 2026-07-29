@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "prisma generate && next build",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "ai": "^7.0.4",
