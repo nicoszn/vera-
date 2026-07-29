@@ -1,17 +1,21 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { db } from '@workspace/db';
 
 export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const taskId = searchParams.get('taskId');
+  try {
+    const { searchParams } = new URL(req.url);
+    const taskId = searchParams.get('taskId');
 
-  if (!taskId) return NextResponse.json({ error: "Missing taskId" }, { status: 400 });
+    if (!taskId) return NextResponse.json({ error: "Missing taskId" }, { status: 400 });
 
-  const task = await prisma.agentTask.findUnique({
-    where: { id: taskId },
-  });
+    const task = await db.agentTask.findUnique({
+      where: { id: taskId },
+    });
 
-  return NextResponse.json(task);
+    if (!task) return NextResponse.json({ error: "Task not found" }, { status: 404 });
+
+    return NextResponse.json(task);
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }
