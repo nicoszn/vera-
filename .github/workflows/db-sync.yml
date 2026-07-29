@@ -1,0 +1,27 @@
+name: Production Database Schema Sync
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'prisma/schema.prisma'
+
+jobs:
+  synchronize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node runtime environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Synchronize Database Live Structure
+        env:
+          DATABASE_URL: ${{ secrets.RAILWAY_DATABASE_URL }}
+        run: |
+          npx prisma generate
+          npx prisma db push --accept-data-loss
