@@ -1,0 +1,21 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client"
+  output   = "../libs/db/generated/prisma"
+}
+
+model AgentTask {
+  id          String   @id @default(uuid())
+  objective   String
+  status      String   @default("PENDING") 
+  logs        Json[]   @default([])        
+  output      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("agent_tasks")
+}
